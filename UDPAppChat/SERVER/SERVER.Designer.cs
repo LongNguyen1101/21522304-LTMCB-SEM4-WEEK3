@@ -33,6 +33,7 @@
             this.txtBMessageSend = new System.Windows.Forms.TextBox();
             this.lstBClientList = new System.Windows.Forms.ListBox();
             this.btnCreate = new System.Windows.Forms.Button();
+            this.btnInformation = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnSend
@@ -47,6 +48,7 @@
             // 
             // rTxtBMessageDisplay
             // 
+            this.rTxtBMessageDisplay.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rTxtBMessageDisplay.Location = new System.Drawing.Point(344, 35);
             this.rTxtBMessageDisplay.Name = "rTxtBMessageDisplay";
             this.rTxtBMessageDisplay.Size = new System.Drawing.Size(1541, 922);
@@ -63,11 +65,12 @@
             // 
             // lstBClientList
             // 
+            this.lstBClientList.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lstBClientList.FormattingEnabled = true;
-            this.lstBClientList.ItemHeight = 20;
+            this.lstBClientList.ItemHeight = 36;
             this.lstBClientList.Location = new System.Drawing.Point(12, 33);
             this.lstBClientList.Name = "lstBClientList";
-            this.lstBClientList.Size = new System.Drawing.Size(311, 924);
+            this.lstBClientList.Size = new System.Drawing.Size(311, 832);
             this.lstBClientList.TabIndex = 4;
             // 
             // btnCreate
@@ -80,11 +83,22 @@
             this.btnCreate.UseVisualStyleBackColor = true;
             this.btnCreate.Click += new System.EventHandler(this.btnCreate_Click);
             // 
+            // btnInformation
+            // 
+            this.btnInformation.Location = new System.Drawing.Point(12, 904);
+            this.btnInformation.Name = "btnInformation";
+            this.btnInformation.Size = new System.Drawing.Size(311, 53);
+            this.btnInformation.TabIndex = 6;
+            this.btnInformation.Text = "INFORMATION";
+            this.btnInformation.UseVisualStyleBackColor = true;
+            this.btnInformation.Click += new System.EventHandler(this.btnInformation_Click);
+            // 
             // SERVERForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1902, 1062);
+            this.Controls.Add(this.btnInformation);
             this.Controls.Add(this.btnCreate);
             this.Controls.Add(this.lstBClientList);
             this.Controls.Add(this.txtBMessageSend);
@@ -107,6 +121,7 @@
         private System.Windows.Forms.TextBox txtBMessageSend;
         private System.Windows.Forms.ListBox lstBClientList;
         private System.Windows.Forms.Button btnCreate;
+        private System.Windows.Forms.Button btnInformation;
     }
 }
 

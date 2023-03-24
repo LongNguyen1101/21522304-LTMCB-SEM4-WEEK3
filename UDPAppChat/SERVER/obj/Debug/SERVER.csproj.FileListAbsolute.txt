@@ -10,3 +10,16 @@ C:\Users\Long Nguyen\Desktop\Lập trình mạng căn bản\Week 3\SERVER\SERVER
 C:\Users\Long Nguyen\Desktop\Lập trình mạng căn bản\Week 3\SERVER\SERVER\obj\Debug\SERVER.exe
 C:\Users\Long Nguyen\Desktop\Lập trình mạng căn bản\Week 3\SERVER\SERVER\obj\Debug\SERVER.pdb
 C:\Users\Long Nguyen\Desktop\Lập trình mạng căn bản\Week 3\SERVER\SERVER\obj\Debug\SERVER.CreateForm.resources
+C:\Users\Long Nguyen\Desktop\Lập trình mạng căn bản\Week 3\UDPAppChat\SERVER\bin\Debug\SERVER.exe.config
+C:\Users\Long Nguyen\Desktop\Lập trình mạng căn bản\Week 3\UDPAppChat\SERVER\bin\Debug\SERVER.exe
+C:\Users\Long Nguyen\Desktop\Lập trình mạng căn bản\Week 3\UDPAppChat\SERVER\bin\Debug\SERVER.pdb
+C:\Users\Long Nguyen\Desktop\Lập trình mạng căn bản\Week 3\UDPAppChat\SERVER\obj\Debug\SERVER.csproj.AssemblyReference.cache
+C:\Users\Long Nguyen\Desktop\Lập trình mạng căn bản\Week 3\UDPAppChat\SERVER\obj\Debug\SERVER.csproj.SuggestedBindingRedirects.cache
+C:\Users\Long Nguyen\Desktop\Lập trình mạng căn bản\Week 3\UDPAppChat\SERVER\obj\Debug\SERVER.CreateForm.resources
+C:\Users\Long Nguyen\Desktop\Lập trình mạng căn bản\Week 3\UDPAppChat\SERVER\obj\Debug\SERVER.SERVERForm.resources
+C:\Users\Long Nguyen\Desktop\Lập trình mạng căn bản\Week 3\UDPAppChat\SERVER\obj\Debug\SERVER.Properties.Resources.resources
+C:\Users\Long Nguyen\Desktop\Lập trình mạng căn bản\Week 3\UDPAppChat\SERVER\obj\Debug\SERVER.csproj.GenerateResource.cache
+C:\Users\Long Nguyen\Desktop\Lập trình mạng căn bản\Week 3\UDPAppChat\SERVER\obj\Debug\SERVER.csproj.CoreCompileInputs.cache
+C:\Users\Long Nguyen\Desktop\Lập trình mạng căn bản\Week 3\UDPAppChat\SERVER\obj\Debug\SERVER.exe
+C:\Users\Long Nguyen\Desktop\Lập trình mạng căn bản\Week 3\UDPAppChat\SERVER\obj\Debug\SERVER.pdb
+C:\Users\Long Nguyen\Desktop\Lập trình mạng căn bản\Week 3\UDPAppChat\SERVER\obj\Debug\SERVER.InformationForm.resources

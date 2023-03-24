@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading;
 
 namespace SERVER
 {
@@ -18,19 +19,18 @@ namespace SERVER
         private IPAddress serverIP;
         private int serverPortNumber;
         private Dictionary<IPEndPoint, string> clients; // for client list
-        private BackgroundWorker bwReceiver; 
+        private readonly Thread receiveThread;
 
         public SERVERForm()
         {
             InitializeComponent();
             clients = new Dictionary<IPEndPoint, string>();
-            bwReceiver = new BackgroundWorker();
-            bwReceiver.WorkerSupportsCancellation = true;
+            receiveThread = new Thread(ReceiveThreadFunction);
         }
 
-        private void BwReceiver_DoWork(object sender, DoWorkEventArgs e)
+        private void ReceiveThreadFunction()
         {
-            while (!bwReceiver.CancellationPending)
+            try
             {
                 while (true)
                 {
@@ -54,22 +54,10 @@ namespace SERVER
                     this.Invoke(new Action(() => rTxtBMessageDisplay.AppendText(displayMessage)));
                 }
             }
-            e.Cancel = true;
-        }
-
-        private void BwReceiver_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            if (e.Cancelled)
+            catch (SocketException ex)
             {
-                MessageBox.Show("Cancel thread complete!\nYou can close form now", "SUCESSFUL", MessageBoxButtons.OK);
-            }
-            else if (e.Error != null)
-            {
-                MessageBox.Show("Can close thread!\n" + e.Error.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else
-            {
-                MessageBox.Show("The background operation completed successfully!\nYou can close form now", "SUCESSFUL", MessageBoxButtons.OK);
+                MessageBox.Show($"An error occurred while receiving messages: {ex.Message}",
+                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -89,9 +77,6 @@ namespace SERVER
             {
                 udpServer = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
                 udpServer.Bind(new IPEndPoint(serverIP, serverPortNumber));
-                bwReceiver.DoWork += BwReceiver_DoWork;
-                bwReceiver.RunWorkerCompleted += BwReceiver_RunWorkerCompleted;
-                bwReceiver.RunWorkerAsync();
 
                 MessageBox.Show($"Start listening on port: {serverPortNumber}", "CONNECT SUCCESSFUL", MessageBoxButtons.OK);
             }
@@ -154,9 +139,8 @@ namespace SERVER
             {
                 try
                 {
-                    bwReceiver.CancelAsync();
-                    udpServer.Shutdown(SocketShutdown.Receive);
                     udpServer.Close();
+                    receiveThread.Abort();
                 }
                 catch 
                 {
@@ -165,6 +149,19 @@ namespace SERVER
                 
             }
             
+        }
+
+        private void btnInformation_Click(object sender, EventArgs e)
+        {
+            if (udpServer != null)
+            {
+                InformationForm inforForm = new InformationForm(serverIP.ToString(), serverPortNumber.ToString());
+                inforForm.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Please create an end point.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
     }
 }
