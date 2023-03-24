@@ -104,7 +104,7 @@
             this.Controls.Add(this.lbIPaddress);
             this.Controls.Add(this.btnCreate);
             this.Name = "CreateForm";
-            this.Text = "CreateForm";
+            this.Text = "ADD END POINT";
             this.ResumeLayout(false);
             this.PerformLayout();
 

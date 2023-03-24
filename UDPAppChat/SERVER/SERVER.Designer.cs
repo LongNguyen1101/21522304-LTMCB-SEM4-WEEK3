@@ -31,7 +31,6 @@
             this.btnSend = new System.Windows.Forms.Button();
             this.rTxtBMessageDisplay = new System.Windows.Forms.RichTextBox();
             this.txtBMessageSend = new System.Windows.Forms.TextBox();
-            this.lstBClientList = new System.Windows.Forms.ListBox();
             this.btnCreate = new System.Windows.Forms.Button();
             this.btnInformation = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -49,9 +48,9 @@
             // rTxtBMessageDisplay
             // 
             this.rTxtBMessageDisplay.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rTxtBMessageDisplay.Location = new System.Drawing.Point(344, 35);
+            this.rTxtBMessageDisplay.Location = new System.Drawing.Point(29, 35);
             this.rTxtBMessageDisplay.Name = "rTxtBMessageDisplay";
-            this.rTxtBMessageDisplay.Size = new System.Drawing.Size(1541, 922);
+            this.rTxtBMessageDisplay.Size = new System.Drawing.Size(1856, 922);
             this.rTxtBMessageDisplay.TabIndex = 2;
             this.rTxtBMessageDisplay.Text = "";
             // 
@@ -62,22 +61,13 @@
             this.txtBMessageSend.Name = "txtBMessageSend";
             this.txtBMessageSend.Size = new System.Drawing.Size(1396, 53);
             this.txtBMessageSend.TabIndex = 3;
-            // 
-            // lstBClientList
-            // 
-            this.lstBClientList.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lstBClientList.FormattingEnabled = true;
-            this.lstBClientList.ItemHeight = 36;
-            this.lstBClientList.Location = new System.Drawing.Point(12, 33);
-            this.lstBClientList.Name = "lstBClientList";
-            this.lstBClientList.Size = new System.Drawing.Size(311, 832);
-            this.lstBClientList.TabIndex = 4;
+            this.txtBMessageSend.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBMessageSend_KeyDown);
             // 
             // btnCreate
             // 
-            this.btnCreate.Location = new System.Drawing.Point(12, 984);
+            this.btnCreate.Location = new System.Drawing.Point(29, 984);
             this.btnCreate.Name = "btnCreate";
-            this.btnCreate.Size = new System.Drawing.Size(311, 53);
+            this.btnCreate.Size = new System.Drawing.Size(147, 53);
             this.btnCreate.TabIndex = 5;
             this.btnCreate.Text = "CREATE";
             this.btnCreate.UseVisualStyleBackColor = true;
@@ -85,9 +75,9 @@
             // 
             // btnInformation
             // 
-            this.btnInformation.Location = new System.Drawing.Point(12, 904);
+            this.btnInformation.Location = new System.Drawing.Point(182, 984);
             this.btnInformation.Name = "btnInformation";
-            this.btnInformation.Size = new System.Drawing.Size(311, 53);
+            this.btnInformation.Size = new System.Drawing.Size(147, 53);
             this.btnInformation.TabIndex = 6;
             this.btnInformation.Text = "INFORMATION";
             this.btnInformation.UseVisualStyleBackColor = true;
@@ -97,10 +87,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1902, 1062);
+            this.ClientSize = new System.Drawing.Size(1916, 1062);
             this.Controls.Add(this.btnInformation);
             this.Controls.Add(this.btnCreate);
-            this.Controls.Add(this.lstBClientList);
             this.Controls.Add(this.txtBMessageSend);
             this.Controls.Add(this.btnSend);
             this.Controls.Add(this.rTxtBMessageDisplay);
@@ -119,7 +108,6 @@
         private System.Windows.Forms.Button btnSend;
         private System.Windows.Forms.RichTextBox rTxtBMessageDisplay;
         private System.Windows.Forms.TextBox txtBMessageSend;
-        private System.Windows.Forms.ListBox lstBClientList;
         private System.Windows.Forms.Button btnCreate;
         private System.Windows.Forms.Button btnInformation;
     }

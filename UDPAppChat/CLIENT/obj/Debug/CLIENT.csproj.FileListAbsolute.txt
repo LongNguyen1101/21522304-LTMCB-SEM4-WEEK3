@@ -9,3 +9,15 @@ C:\Users\Long Nguyen\Desktop\Lập trình mạng căn bản\Week 3\SERVER\CLIENT
 C:\Users\Long Nguyen\Desktop\Lập trình mạng căn bản\Week 3\SERVER\CLIENT\obj\Debug\CLIENT.csproj.CoreCompileInputs.cache
 C:\Users\Long Nguyen\Desktop\Lập trình mạng căn bản\Week 3\SERVER\CLIENT\obj\Debug\CLIENT.exe
 C:\Users\Long Nguyen\Desktop\Lập trình mạng căn bản\Week 3\SERVER\CLIENT\obj\Debug\CLIENT.pdb
+C:\Users\Long Nguyen\Desktop\Lập trình mạng căn bản\Week 3\UDPAppChat\CLIENT\bin\Debug\CLIENT.exe.config
+C:\Users\Long Nguyen\Desktop\Lập trình mạng căn bản\Week 3\UDPAppChat\CLIENT\bin\Debug\CLIENT.exe
+C:\Users\Long Nguyen\Desktop\Lập trình mạng căn bản\Week 3\UDPAppChat\CLIENT\bin\Debug\CLIENT.pdb
+C:\Users\Long Nguyen\Desktop\Lập trình mạng căn bản\Week 3\UDPAppChat\CLIENT\obj\Debug\CLIENT.csproj.AssemblyReference.cache
+C:\Users\Long Nguyen\Desktop\Lập trình mạng căn bản\Week 3\UDPAppChat\CLIENT\obj\Debug\CLIENT.csproj.SuggestedBindingRedirects.cache
+C:\Users\Long Nguyen\Desktop\Lập trình mạng căn bản\Week 3\UDPAppChat\CLIENT\obj\Debug\CLIENT.AddEndPointServer.resources
+C:\Users\Long Nguyen\Desktop\Lập trình mạng căn bản\Week 3\UDPAppChat\CLIENT\obj\Debug\CLIENT.CLIENT.resources
+C:\Users\Long Nguyen\Desktop\Lập trình mạng căn bản\Week 3\UDPAppChat\CLIENT\obj\Debug\CLIENT.Properties.Resources.resources
+C:\Users\Long Nguyen\Desktop\Lập trình mạng căn bản\Week 3\UDPAppChat\CLIENT\obj\Debug\CLIENT.csproj.GenerateResource.cache
+C:\Users\Long Nguyen\Desktop\Lập trình mạng căn bản\Week 3\UDPAppChat\CLIENT\obj\Debug\CLIENT.csproj.CoreCompileInputs.cache
+C:\Users\Long Nguyen\Desktop\Lập trình mạng căn bản\Week 3\UDPAppChat\CLIENT\obj\Debug\CLIENT.exe
+C:\Users\Long Nguyen\Desktop\Lập trình mạng căn bản\Week 3\UDPAppChat\CLIENT\obj\Debug\CLIENT.pdb

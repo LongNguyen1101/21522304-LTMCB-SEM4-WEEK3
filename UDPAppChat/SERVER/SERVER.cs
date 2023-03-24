@@ -11,6 +11,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 
+
 namespace SERVER
 {
     public partial class SERVERForm : Form
@@ -18,14 +19,13 @@ namespace SERVER
         private Socket udpServer;
         private IPAddress serverIP;
         private int serverPortNumber;
-        private Dictionary<IPEndPoint, string> clients; // for client list
         private readonly Thread receiveThread;
 
         public SERVERForm()
         {
             InitializeComponent();
-            clients = new Dictionary<IPEndPoint, string>();
             receiveThread = new Thread(ReceiveThreadFunction);
+            rTxtBMessageDisplay.ReadOnly = true;
         }
 
         private void ReceiveThreadFunction()
@@ -38,20 +38,12 @@ namespace SERVER
                     byte[] buffer = new byte[1024];
                     EndPoint remoteEP = new IPEndPoint(IPAddress.Any, 0);
                     int byteRead = udpServer.ReceiveFrom(buffer, ref remoteEP);
-                    IPEndPoint clientEP = (IPEndPoint)remoteEP;
-
-                    // Add client to list Box if not already connected
-                    if (!clients.ContainsKey(clientEP))
-                    {
-                        clients.Add(clientEP, clientEP.ToString());
-                        updateClientList();
-                    }
 
                     // Add message to Message Display
                     string message = Encoding.UTF8.GetString(buffer, 0, byteRead);
-                    string displayMessage = $"[{DateTime.Now:HH:mm:ss}] -> {clients[clientEP]}: {message}\r\n";
-                   
-                    this.Invoke(new Action(() => rTxtBMessageDisplay.AppendText(displayMessage)));
+                    string displayMessage = $"[{DateTime.Now:HH:mm:ss}] CLIENT -> : {message}\r\n";
+
+                    Invoke(new Action(() => rTxtBMessageDisplay.AppendText(displayMessage)));
                 }
             }
             catch (SocketException ex)
@@ -77,6 +69,7 @@ namespace SERVER
             {
                 udpServer = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
                 udpServer.Bind(new IPEndPoint(serverIP, serverPortNumber));
+                receiveThread.Start();
 
                 MessageBox.Show($"Start listening on port: {serverPortNumber}", "CONNECT SUCCESSFUL", MessageBoxButtons.OK);
             }
@@ -96,27 +89,16 @@ namespace SERVER
             }
             if (string.IsNullOrEmpty(txtBMessageSend.Text)) return;
 
-            // Send message to all connected clients
             string message = txtBMessageSend.Text;
             byte[] data = Encoding.UTF8.GetBytes(message);
-            foreach (var client in clients.Keys)
-                udpServer.SendTo(data, client);
+            IPEndPoint sendEndPoint = new IPEndPoint(serverIP, serverPortNumber);
+            udpServer.SendTo(data, sendEndPoint);
 
             // Add message to Message Display
-            string displayMessage = string.Format("Server: {0}\n", message);
+            string displayMessage = $"[{DateTime.Now:HH:mm:ss}] YOU -> : {message}\r\n";
             rTxtBMessageDisplay.AppendText(displayMessage);
 
             txtBMessageSend.Clear();
-        }
-
-        private void updateClientList()
-        {
-            this.Invoke(new Action(() =>
-            {
-                lstBClientList.Items.Clear();
-                foreach (var client in clients.Values)
-                    lstBClientList.Items.Add(client);
-            }));
         }
 
         private void SERVERForm_Load(object sender, EventArgs e)
@@ -148,7 +130,6 @@ namespace SERVER
                 }
                 
             }
-            
         }
 
         private void btnInformation_Click(object sender, EventArgs e)
@@ -161,6 +142,14 @@ namespace SERVER
             else
             {
                 MessageBox.Show("Please create an end point.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+        
+        private void txtBMessageSend_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            { 
+                 btnSend_Click(sender, e);
             }
         }
     }

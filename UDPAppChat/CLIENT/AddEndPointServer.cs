@@ -4,24 +4,24 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Net;
 
-namespace SERVER
+namespace CLIENT
 {
-    public partial class CreateForm : Form
+    public partial class AddEndPointServer : Form
     {
         IPAddress ipAddress;
         int portNumber;
 
-        public CreateForm()
+        public AddEndPointServer()
         {
             InitializeComponent();
         }
 
-        private void btnCreate_Click(object sender, EventArgs e)
+        private void btnAddEndPont_Click(object sender, EventArgs e)
         {
             // validate IP Address and port number
             if (string.IsNullOrEmpty(txtBIPAddress.Text) && string.IsNullOrEmpty(txtBPort.Text))
@@ -42,7 +42,7 @@ namespace SERVER
                     return;
                 }
             }
-            
+
 
             portNumber = Convert.ToInt32(txtBPort.Text);
             if (IPAddress.TryParse(txtBIPAddress.Text, out ipAddress) == false)
@@ -50,7 +50,7 @@ namespace SERVER
                 MessageBox.Show("INVALID IP ADDRESS!", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            if (portNumber < 1024 || portNumber > 49151) 
+            if (portNumber < 1024 || portNumber > 49151)
             {
                 MessageBox.Show("INVALID PORT NUMBER", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -71,7 +71,7 @@ namespace SERVER
             this.Close();
         }
 
-        public string getIPAddress () { return txtBIPAddress.Text; }
-        public string getPortNumber () { return txtBPort.Text; }
+        public string getIPAddress() { return txtBIPAddress.Text; }
+        public string getPortNumber() { return txtBPort.Text; }
     }
 }

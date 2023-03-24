@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddEndPointServer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddEndPointServer.Designer.cs">
+      <DependentUpon>AddEndPointServer.cs</DependentUpon>
+    </Compile>
     <Compile Include="CLIENT.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -54,6 +60,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AddEndPointServer.resx">
+      <DependentUpon>AddEndPointServer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CLIENT.resx">
       <DependentUpon>CLIENT.cs</DependentUpon>
     </EmbeddedResource>
