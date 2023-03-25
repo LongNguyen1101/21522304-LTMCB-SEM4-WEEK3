@@ -17,51 +17,36 @@ namespace CLIENT
     {
         private UdpClient udpClient;
         private IPAddress IP;
-        private int PortNumber;
-        private IPEndPoint remoteEndPoint;
-        private readonly Thread receiveThread;
+        private int remotePortNumber;
+        private int localPortNumber;
 
         public CLIENT()
         { 
             InitializeComponent();
+
             udpClient = new UdpClient();
-            receiveThread = new Thread(ReceiveThreadFunction);
             rTxtBMessageDisplay.ReadOnly = true;
         }
 
-        //private void ReceiveCallback(IAsyncResult ar)
-        //{
-        //    try
-        //    {
-        //        IPEndPoint remoteEP = new IPEndPoint(IPAddress.Any, 0);
-        //        byte[] byteRead = udpClient.EndReceive(ar, ref remoteEP);
-        //        string message = Encoding.UTF8.GetString(byteRead);
-        //        string displayMessage = $"[{DateTime.Now:HH:mm:ss}] SERVER -> : {message}\r\n";
+        private void CLIENT_Load(object sender, EventArgs e)
+        {
+            txtBMessageSend.Focus();
+        }
 
-        //        Invoke(new Action(() => rTxtBMessageDisplay.AppendText(displayMessage)));
-
-        //        udpClient.BeginReceive(new AsyncCallback(ReceiveCallback), null);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show($"An error occurred while receiving messages: {ex.Message}",
-        //                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //    }
-        //}
-
-        private void ReceiveThreadFunction()
+        private void ReceiveCallback(IAsyncResult ar)
         {
             try
             {
-                while (true)
-                {
-                    IPEndPoint remoteEP = new IPEndPoint(IPAddress.Any, 0);
-                    byte[] byteRead = udpClient.Receive(ref remoteEP);
-                    string message = Encoding.UTF8.GetString(byteRead);
-                    string displayMessage = $"[{DateTime.Now:HH:mm:ss}] SERVER -> : {message}\r\n";
+                IPEndPoint remoteEP = new IPEndPoint(IPAddress.Any, 0);
+                byte[] byteRead = udpClient.EndReceive(ar, ref remoteEP);
 
-                    Invoke(new Action(() => rTxtBMessageDisplay.AppendText(displayMessage)));
-                }
+                // Add message to Message Display
+                string message = Encoding.UTF8.GetString(byteRead);
+                string displayMessage = $"[{DateTime.Now:HH:mm:ss}] SERVER -> : {message}\r\n";
+
+                Invoke(new Action(() => rTxtBMessageDisplay.AppendText(displayMessage)));
+
+                udpClient.BeginReceive(new AsyncCallback(ReceiveCallback), null);
             }
             catch (Exception ex)
             {
@@ -69,32 +54,45 @@ namespace CLIENT
                                 "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-        private void btnAddEndPointServer_Click(object sender, EventArgs e)
+        private void btnCreate_Click(object sender, EventArgs e)
         {
-            AddEndPointServer addEndPointServer = new AddEndPointServer();
+
+            CreateForm addEndPointServer = new CreateForm();
             addEndPointServer.ShowDialog();
 
-            if (string.IsNullOrEmpty(addEndPointServer.getIPAddress()) || string.IsNullOrEmpty(addEndPointServer.getPortNumber())) return;
+            if (string.IsNullOrEmpty(addEndPointServer.getIPAddress()) ||
+                string.IsNullOrEmpty(addEndPointServer.getLocalPortNumber()) ||
+                string.IsNullOrEmpty(addEndPointServer.getLocalPortNumber())) return;
             else
             {
                 IP = IPAddress.Parse(addEndPointServer.getIPAddress());
-                PortNumber = Convert.ToInt32(addEndPointServer.getPortNumber());
+                remotePortNumber = Convert.ToInt32(addEndPointServer.getRemotePortNumber());
+                localPortNumber = Convert.ToInt32(addEndPointServer.getLocalPortNumber());
             }
 
             try
             {
-                udpClient = new UdpClient(PortNumber);
-                remoteEndPoint = new IPEndPoint(IP, PortNumber);
-                //udpClient.BeginReceive(new AsyncCallback(ReceiveCallback), null);
-                receiveThread.Start();
+                udpClient = new UdpClient(localPortNumber);
+                udpClient.BeginReceive(new AsyncCallback(ReceiveCallback), null);
 
-                MessageBox.Show($"Start listening on port: {PortNumber}", "CONNECT SUCCESSFUL", MessageBoxButtons.OK);
+                MessageBox.Show($"Start listening on port: {localPortNumber}", "CONNECT SUCCESSFUL", MessageBoxButtons.OK);
             }
             catch (Exception ex)
             {
                 MessageBox.Show("CANNOT CREATE ENDPOINT\n\n" + ex.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                btnAddEndPointServer_Click(sender, e);
+                btnCreate_Click(sender, e);
+            }
+        }
+        private void btnInformation_Click(object sender, EventArgs e)
+        {
+            if (udpClient != null)
+            {
+                InformationForm inforForm = new InformationForm(IP.ToString(), localPortNumber.ToString(), remotePortNumber.ToString());
+                inforForm.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Please create an end point.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -109,7 +107,7 @@ namespace CLIENT
 
             string message = txtBMessageSend.Text;
             byte[] data = Encoding.UTF8.GetBytes(message);
-            IPEndPoint sendEndPoint = new IPEndPoint(IP, PortNumber);
+            IPEndPoint sendEndPoint = new IPEndPoint(IP, remotePortNumber);
             udpClient.Send(data, data.Length, sendEndPoint);
 
             // Add message to Message Display
@@ -119,41 +117,38 @@ namespace CLIENT
             txtBMessageSend.Clear();
         }
 
-        private void CLIENT_Load(object sender, EventArgs e)
-        {
-            txtBMessageSend.Focus();
-        }
-
-        private void CLIENT_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            DialogResult res = MessageBox.Show("Are you want to close?",
-                            "Confirm",
-                            MessageBoxButtons.OKCancel,
-                            MessageBoxIcon.Question);
-            if (res == DialogResult.Cancel)
-            {
-                return;
-            }
-
-            if (udpClient != null)
-            {
-                try
-                {
-                    udpClient.Close();
-                    receiveThread.Abort();
-                }
-                catch
-                {
-                    MessageBox.Show("CAN CLOSE THE APPLICATION!\n" + e.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
-
         private void txtBMessageSend_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
                 btnSend_Click(sender, e);
+            }
+        }
+
+        private void CLIENT_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DialogResult res = MessageBox.Show("Are you want to close?",
+                                               "Confirm",
+                                               MessageBoxButtons.YesNo,
+                                               MessageBoxIcon.Question);
+            if (res == DialogResult.No)
+            {
+                e.Cancel = true;
+            }
+            else
+            {
+                if (udpClient != null)
+                {
+                    try
+                    {
+                        udpClient.Close();
+                        //receiveThread.Abort();
+                    }
+                    catch
+                    {
+                        MessageBox.Show("CAN CLOSE THE APPLICATION!\n" + e.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
             }
         }
     }

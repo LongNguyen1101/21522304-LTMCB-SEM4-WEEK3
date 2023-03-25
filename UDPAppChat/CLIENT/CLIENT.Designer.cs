@@ -29,9 +29,10 @@
         private void InitializeComponent()
         {
             this.rTxtBMessageDisplay = new System.Windows.Forms.RichTextBox();
-            this.btnAddEndPointServer = new System.Windows.Forms.Button();
+            this.btnCreate = new System.Windows.Forms.Button();
             this.txtBMessageSend = new System.Windows.Forms.TextBox();
             this.btnSend = new System.Windows.Forms.Button();
+            this.btnInformation = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // rTxtBMessageDisplay
@@ -43,15 +44,15 @@
             this.rTxtBMessageDisplay.TabIndex = 3;
             this.rTxtBMessageDisplay.Text = "";
             // 
-            // btnAddEndPointServer
+            // btnCreate
             // 
-            this.btnAddEndPointServer.Location = new System.Drawing.Point(29, 984);
-            this.btnAddEndPointServer.Name = "btnAddEndPointServer";
-            this.btnAddEndPointServer.Size = new System.Drawing.Size(294, 53);
-            this.btnAddEndPointServer.TabIndex = 9;
-            this.btnAddEndPointServer.Text = "ADD END POINT SERVER";
-            this.btnAddEndPointServer.UseVisualStyleBackColor = true;
-            this.btnAddEndPointServer.Click += new System.EventHandler(this.btnAddEndPointServer_Click);
+            this.btnCreate.Location = new System.Drawing.Point(29, 984);
+            this.btnCreate.Name = "btnCreate";
+            this.btnCreate.Size = new System.Drawing.Size(147, 53);
+            this.btnCreate.TabIndex = 9;
+            this.btnCreate.Text = "CREATE";
+            this.btnCreate.UseVisualStyleBackColor = true;
+            this.btnCreate.Click += new System.EventHandler(this.btnCreate_Click);
             // 
             // txtBMessageSend
             // 
@@ -72,12 +73,23 @@
             this.btnSend.UseVisualStyleBackColor = true;
             this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
             // 
+            // btnInformation
+            // 
+            this.btnInformation.Location = new System.Drawing.Point(182, 984);
+            this.btnInformation.Name = "btnInformation";
+            this.btnInformation.Size = new System.Drawing.Size(147, 53);
+            this.btnInformation.TabIndex = 10;
+            this.btnInformation.Text = "INFORMATION";
+            this.btnInformation.UseVisualStyleBackColor = true;
+            this.btnInformation.Click += new System.EventHandler(this.btnInformation_Click);
+            // 
             // CLIENT
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1916, 1062);
-            this.Controls.Add(this.btnAddEndPointServer);
+            this.Controls.Add(this.btnInformation);
+            this.Controls.Add(this.btnCreate);
             this.Controls.Add(this.txtBMessageSend);
             this.Controls.Add(this.btnSend);
             this.Controls.Add(this.rTxtBMessageDisplay);
@@ -95,7 +107,8 @@
         private System.Windows.Forms.RichTextBox rTxtBMessageDisplay;
         private System.Windows.Forms.TextBox txtBMessageSend;
         private System.Windows.Forms.Button btnSend;
-        private System.Windows.Forms.Button btnAddEndPointServer;
+        private System.Windows.Forms.Button btnCreate;
+        private System.Windows.Forms.Button btnInformation;
     }
 }
 

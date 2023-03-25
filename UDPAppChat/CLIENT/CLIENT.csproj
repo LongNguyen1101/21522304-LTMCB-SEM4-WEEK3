@@ -46,11 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddEndPointServer.cs">
+    <Compile Include="CreateForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddEndPointServer.Designer.cs">
-      <DependentUpon>AddEndPointServer.cs</DependentUpon>
+    <Compile Include="CreateForm.Designer.cs">
+      <DependentUpon>CreateForm.cs</DependentUpon>
     </Compile>
     <Compile Include="CLIENT.cs">
       <SubType>Form</SubType>
@@ -58,13 +58,22 @@
     <Compile Include="CLIENT.Designer.cs">
       <DependentUpon>CLIENT.cs</DependentUpon>
     </Compile>
+    <Compile Include="InformationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InformationForm.Designer.cs">
+      <DependentUpon>InformationForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="AddEndPointServer.resx">
-      <DependentUpon>AddEndPointServer.cs</DependentUpon>
+    <EmbeddedResource Include="CreateForm.resx">
+      <DependentUpon>CreateForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CLIENT.resx">
       <DependentUpon>CLIENT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InformationForm.resx">
+      <DependentUpon>InformationForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

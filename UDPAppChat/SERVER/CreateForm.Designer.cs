@@ -30,10 +30,12 @@
         {
             this.btnCreate = new System.Windows.Forms.Button();
             this.lbIPaddress = new System.Windows.Forms.Label();
-            this.lbPort = new System.Windows.Forms.Label();
+            this.lbLocalPort = new System.Windows.Forms.Label();
             this.txtBIPAddress = new System.Windows.Forms.TextBox();
-            this.txtBPort = new System.Windows.Forms.TextBox();
+            this.txtBLocalPort = new System.Windows.Forms.TextBox();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.txtBRemotePort = new System.Windows.Forms.TextBox();
+            this.lbRemotePort = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnCreate
@@ -56,15 +58,15 @@
             this.lbIPaddress.TabIndex = 1;
             this.lbIPaddress.Text = "IP ADDRESS";
             // 
-            // lbPort
+            // lbLocalPort
             // 
-            this.lbPort.AutoSize = true;
-            this.lbPort.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbPort.Location = new System.Drawing.Point(45, 203);
-            this.lbPort.Name = "lbPort";
-            this.lbPort.Size = new System.Drawing.Size(97, 36);
-            this.lbPort.TabIndex = 2;
-            this.lbPort.Text = "PORT";
+            this.lbLocalPort.AutoSize = true;
+            this.lbLocalPort.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbLocalPort.Location = new System.Drawing.Point(45, 149);
+            this.lbLocalPort.Name = "lbLocalPort";
+            this.lbLocalPort.Size = new System.Drawing.Size(203, 36);
+            this.lbLocalPort.TabIndex = 2;
+            this.lbLocalPort.Text = "LOCAL PORT";
             // 
             // txtBIPAddress
             // 
@@ -74,13 +76,13 @@
             this.txtBIPAddress.Size = new System.Drawing.Size(308, 41);
             this.txtBIPAddress.TabIndex = 3;
             // 
-            // txtBPort
+            // txtBLocalPort
             // 
-            this.txtBPort.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBPort.Location = new System.Drawing.Point(287, 198);
-            this.txtBPort.Name = "txtBPort";
-            this.txtBPort.Size = new System.Drawing.Size(308, 41);
-            this.txtBPort.TabIndex = 4;
+            this.txtBLocalPort.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBLocalPort.Location = new System.Drawing.Point(287, 144);
+            this.txtBLocalPort.Name = "txtBLocalPort";
+            this.txtBLocalPort.Size = new System.Drawing.Size(308, 41);
+            this.txtBLocalPort.TabIndex = 4;
             // 
             // btnCancel
             // 
@@ -92,15 +94,35 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
+            // txtBRemotePort
+            // 
+            this.txtBRemotePort.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBRemotePort.Location = new System.Drawing.Point(287, 218);
+            this.txtBRemotePort.Name = "txtBRemotePort";
+            this.txtBRemotePort.Size = new System.Drawing.Size(308, 41);
+            this.txtBRemotePort.TabIndex = 15;
+            // 
+            // lbRemotePort
+            // 
+            this.lbRemotePort.AutoSize = true;
+            this.lbRemotePort.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbRemotePort.Location = new System.Drawing.Point(45, 223);
+            this.lbRemotePort.Name = "lbRemotePort";
+            this.lbRemotePort.Size = new System.Drawing.Size(232, 36);
+            this.lbRemotePort.TabIndex = 14;
+            this.lbRemotePort.Text = "REMOTE PORT";
+            // 
             // CreateForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(709, 436);
+            this.Controls.Add(this.txtBRemotePort);
+            this.Controls.Add(this.lbRemotePort);
             this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.txtBPort);
+            this.Controls.Add(this.txtBLocalPort);
             this.Controls.Add(this.txtBIPAddress);
-            this.Controls.Add(this.lbPort);
+            this.Controls.Add(this.lbLocalPort);
             this.Controls.Add(this.lbIPaddress);
             this.Controls.Add(this.btnCreate);
             this.Name = "CreateForm";
@@ -114,9 +136,11 @@
 
         private System.Windows.Forms.Button btnCreate;
         private System.Windows.Forms.Label lbIPaddress;
-        private System.Windows.Forms.Label lbPort;
+        private System.Windows.Forms.Label lbLocalPort;
         private System.Windows.Forms.TextBox txtBIPAddress;
-        private System.Windows.Forms.TextBox txtBPort;
+        private System.Windows.Forms.TextBox txtBLocalPort;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.TextBox txtBRemotePort;
+        private System.Windows.Forms.Label lbRemotePort;
     }
 }

@@ -17,15 +17,22 @@ namespace SERVER
     public partial class SERVERForm : Form
     {
         private Socket udpServer;
-        private IPAddress serverIP;
-        private int serverPortNumber;
-        private readonly Thread receiveThread;
+        private IPAddress IP;
+        private int remotePortNumber;
+        private int localPortNumber;
+        private Thread receiveThread;
 
         public SERVERForm()
         {
             InitializeComponent();
-            receiveThread = new Thread(ReceiveThreadFunction);
+
+            udpServer = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+            
             rTxtBMessageDisplay.ReadOnly = true;
+        }
+        private void SERVERForm_Load(object sender, EventArgs e)
+        {
+            txtBMessageSend.Focus();
         }
 
         private void ReceiveThreadFunction()
@@ -58,25 +65,41 @@ namespace SERVER
             CreateForm createForm = new CreateForm();
             createForm.ShowDialog();
 
-            if (string.IsNullOrEmpty(createForm.getIPAddress()) || string.IsNullOrEmpty(createForm.getPortNumber())) return;
+            if (string.IsNullOrEmpty(createForm.getIPAddress()) || 
+                string.IsNullOrEmpty(createForm.getLocalPortNumber()) || 
+                string.IsNullOrEmpty(createForm.getLocalPortNumber())) return;
             else
             {
-                serverIP = IPAddress.Parse(createForm.getIPAddress());
-                serverPortNumber = Convert.ToInt32(createForm.getPortNumber());
+                IP = IPAddress.Parse(createForm.getIPAddress());
+                remotePortNumber = Convert.ToInt32(createForm.getRemotePortNumber());
+                localPortNumber = Convert.ToInt32(createForm.getLocalPortNumber());
             }
 
             try
             {
-                udpServer = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-                udpServer.Bind(new IPEndPoint(serverIP, serverPortNumber));
+                udpServer.Bind(new IPEndPoint(IP, localPortNumber));
+                receiveThread = new Thread(ReceiveThreadFunction);
                 receiveThread.Start();
 
-                MessageBox.Show($"Start listening on port: {serverPortNumber}", "CONNECT SUCCESSFUL", MessageBoxButtons.OK);
+                MessageBox.Show($"Start listening on port: {localPortNumber}", "CONNECT SUCCESSFUL", MessageBoxButtons.OK);
             }
             catch (Exception ex)
             {
                 MessageBox.Show("CANNOT CREATE ENDPOINT\n\n" + ex.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 btnCreate_Click(sender, e);
+            }
+        }
+
+        private void btnInformation_Click(object sender, EventArgs e)
+        {
+            if (udpServer != null)
+            {
+                InformationForm inforForm = new InformationForm(IP.ToString(), localPortNumber.ToString(), remotePortNumber.ToString());
+                inforForm.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Please create an end point.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -91,7 +114,7 @@ namespace SERVER
 
             string message = txtBMessageSend.Text;
             byte[] data = Encoding.UTF8.GetBytes(message);
-            IPEndPoint sendEndPoint = new IPEndPoint(serverIP, serverPortNumber);
+            IPEndPoint sendEndPoint = new IPEndPoint(IP, remotePortNumber);
             udpServer.SendTo(data, sendEndPoint);
 
             // Add message to Message Display
@@ -101,55 +124,39 @@ namespace SERVER
             txtBMessageSend.Clear();
         }
 
-        private void SERVERForm_Load(object sender, EventArgs e)
+        private void txtBMessageSend_KeyDown(object sender, KeyEventArgs e)
         {
-            txtBMessageSend.Focus();
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnSend_Click(sender, e);
+            }
         }
 
         private void SERVERForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             DialogResult res = MessageBox.Show("Are you want to close?",
-                            "Confirm",
-                            MessageBoxButtons.OKCancel,
-                            MessageBoxIcon.Question);
-            if (res == DialogResult.Cancel)
+                                               "Confirm",
+                                               MessageBoxButtons.YesNo,
+                                               MessageBoxIcon.Question);
+            if (res == DialogResult.No)
             {
-                return;
-            }
-
-            if (udpServer != null) 
-            {
-                try
-                {
-                    udpServer.Close();
-                    receiveThread.Abort();
-                }
-                catch 
-                {
-                    MessageBox.Show("CAN CLOSE THE APPLICATION!\n" + e.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error); 
-                }
-                
-            }
-        }
-
-        private void btnInformation_Click(object sender, EventArgs e)
-        {
-            if (udpServer != null)
-            {
-                InformationForm inforForm = new InformationForm(serverIP.ToString(), serverPortNumber.ToString());
-                inforForm.ShowDialog();
+                e.Cancel = true;
             }
             else
             {
-                MessageBox.Show("Please create an end point.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-        }
-        
-        private void txtBMessageSend_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            { 
-                 btnSend_Click(sender, e);
+                if (udpServer != null)
+                {
+                    try
+                    {
+                        udpServer.Close();
+                        if (receiveThread != null) receiveThread.Abort();
+                    }
+                    catch
+                    {
+                        MessageBox.Show("CAN CLOSE THE APPLICATION!\n" + e.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
+                }
             }
         }
     }

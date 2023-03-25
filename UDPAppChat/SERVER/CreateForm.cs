@@ -24,7 +24,7 @@ namespace SERVER
         private void btnCreate_Click(object sender, EventArgs e)
         {
             // validate IP Address and port number
-            if (string.IsNullOrEmpty(txtBIPAddress.Text) && string.IsNullOrEmpty(txtBPort.Text))
+            if (string.IsNullOrEmpty(txtBIPAddress.Text) && string.IsNullOrEmpty(txtBLocalPort.Text) && string.IsNullOrEmpty(txtBRemotePort.Text))
             {
                 MessageBox.Show("Please fill in the missing place.", "WARNING", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -36,23 +36,22 @@ namespace SERVER
                     MessageBox.Show("Please fill the IP address.", "WARNING", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
-                if (string.IsNullOrEmpty(txtBPort.Text))
+                if (string.IsNullOrEmpty(txtBLocalPort.Text))
+                {
+                    MessageBox.Show("Please fill the Port.", "WARNING", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                if (string.IsNullOrEmpty(txtBRemotePort.Text))
                 {
                     MessageBox.Show("Please fill the Port.", "WARNING", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
             }
-            
 
-            portNumber = Convert.ToInt32(txtBPort.Text);
+
             if (IPAddress.TryParse(txtBIPAddress.Text, out ipAddress) == false)
             {
                 MessageBox.Show("INVALID IP ADDRESS!", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            if (portNumber < 1024 || portNumber > 49151) 
-            {
-                MessageBox.Show("INVALID PORT NUMBER", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             this.Close();
@@ -72,6 +71,7 @@ namespace SERVER
         }
 
         public string getIPAddress () { return txtBIPAddress.Text; }
-        public string getPortNumber () { return txtBPort.Text; }
+        public string getLocalPortNumber () { return txtBLocalPort.Text; }
+        public string getRemotePortNumber() { return txtBRemotePort.Text; }
     }
 }
